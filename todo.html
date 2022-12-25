@@ -1,5 +1,9 @@
 <button style="height:150px; width:400px" onclick="findNext()">
     Next
+
+</button>
+<button style="height:150px; width:400px" onclick="doShuffle()">
+    Shuffle
 </button>
 
 <h1 id="CurrCtx"></h1>
@@ -13,19 +17,42 @@
     let currWorkIdx = 0;
 
     fetch('dump.json')
-    .then((response) => response.json())
-    .then((json) => {
-        console.log(json);
-        playCtxWorks = json.list;
-        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
-    });
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            playCtxWorks = json.list;
+            document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+        });
 
-    function findNext(){
+    function findNext() {
         currWorkIdx += 1;
         if (currWorkIdx >= playCtxWorks.length)
             currWorkIdx = 0;
         document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
     }
 
+    function doShuffle(){
+        arr_shuffle(playCtxWorks);
+        currWorkIdx = 0;
+        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+    }
 
+    /* https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array */
+    function arr_shuffle(array) {
+        let currentIndex = array.length, randomIndex;
+
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
 </script>

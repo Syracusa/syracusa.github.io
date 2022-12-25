@@ -1,31 +1,12 @@
-<button onclick="findNext()">
-    Next
-</button>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Syracusa - gitio</title>
+</head>
+<body>
 
-<h1 id="CurrCtx"></h1>
-<h1 id="mainText">N/A</h1>
+<h1> Repositories</h1>
+  <h2>loc counter</h2>
 
-
-
-<script>
-
-    let playCtxWorks = ["N/A"];
-    let currWorkIdx = 0;
-
-    fetch('dump.json')
-    .then((response) => response.json())
-    .then((json) => {
-        console.log(json);
-        playCtxWorks = json.list;
-        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
-    });
-
-    function findNext(){
-        currWorkIdx += 1;
-        if (currWorkIdx >= playCtxWorks.length)
-            currWorkIdx = 0;
-        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
-    }
-
-
-</script>
+</body>
+</html>

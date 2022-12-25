@@ -1,13 +1,13 @@
 <div style="width:100%; height:10%; display:flex; flex:auto;">
-    <button style="width:30%; height:100%">Home</button>
-    <button style="width:30%; height:100%">Transit</button>
-    <button style="width:30%; height:100%">Talk</button>
+    <button style="width:30%; height:100%" onclick="loadJson('Home')">Home</button>
+    <button style="width:30%; height:100%" onclick="loadJson('Transit')">Transit</button>
+    <button style="width:30%; height:100%" onclick="loadJson('Talk')">Talk</button>
 </div>
 <div style="width:100%; height:3%; display:flex; flex:auto;"></div>
 <div style="width:100%; height:20%; display:flex;">
     <button style="width:45%; height:100%" onclick="findNext()">
         Next
-    
+
     </button>
     <button style="width:45%; height:100%" onclick="doShuffle()">
         Shuffle
@@ -19,28 +19,45 @@
 <h1 id="mainText">N/A</h1>
 
 
-
 <script>
-
-    let playCtxWorks = ["N/A"];
+    let playCtxWorks = [];
     let currWorkIdx = 0;
 
-    fetch('static/Transit.json')
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            playCtxWorks = json;
-            document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
-        });
+
+    function loadJson(keyword) {
+        playCtxWorks = [];
+
+        fetch('static/' + keyword + '.json')
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                playCtxWorks = playCtxWorks.concat(json);
+                document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+            });
+
+        fetch('static/Always.json')
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                playCtxWorks = playCtxWorks.concat(json);
+                document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+            });
+    }
 
     function findNext() {
+        if (playCtxWorks.length < 1)
+            return;
+
         currWorkIdx += 1;
         if (currWorkIdx >= playCtxWorks.length)
             currWorkIdx = 0;
         document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
     }
 
-    function doShuffle(){
+    function doShuffle() {
+        if (playCtxWorks.length < 1)
+            return;
+
         arr_shuffle(playCtxWorks);
         currWorkIdx = 0;
         document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
@@ -64,4 +81,7 @@
 
         return array;
     }
+    
+    /* Default load context is 'Home' */
+    loadJson('Home');
 </script>

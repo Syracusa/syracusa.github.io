@@ -1,1 +1,31 @@
-Hello World
+<button onclick="findNext()">
+    Next
+</button>
+
+<h1 id="CurrCtx"></h1>
+<h1 id="mainText">N/A</h1>
+
+
+
+<script>
+
+    let playCtxWorks = ["N/A"];
+    let currWorkIdx = 0;
+
+    fetch('dump.json')
+    .then((response) => response.json())
+    .then((json) => {
+        console.log(json);
+        playCtxWorks = json.list;
+        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+    });
+
+    function findNext(){
+        currWorkIdx += 1;
+        if (currWorkIdx >= playCtxWorks.length)
+            currWorkIdx = 0;
+        document.getElementById("mainText").innerHTML = playCtxWorks[currWorkIdx];
+    }
+
+
+</script>

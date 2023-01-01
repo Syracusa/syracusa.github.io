@@ -1,4 +1,5 @@
 [
+    "Check random storage of your room",
     "Make bed",
     "Fold one laundry",
     "Throw out garbage outside",
@@ -10,5 +11,6 @@
     "Turn on the hot water in the sink",
     "Put one food garbage to trashbag",
     "Throw out one big garbage",
-    "Pick Vaccum Cleaner"
+    "Pick Vaccum Cleaner",
+    "Put on one sock"
 ]
